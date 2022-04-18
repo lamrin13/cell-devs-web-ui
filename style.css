@@ -1,32 +1,70 @@
-#projectInput{
-  margin-top: 10px; 
-  margin-right: 10px; 
-  float: right; 
-  background: #ddd;
-  font-size: 17px;
+#expand{
+  margin-right: 4px;
+  color: white;
+  font-size: 16px;
+}
+#expand:hover{
+  cursor: pointer;
+}
+#expand-code{
+  margin-right: 4px;
+  color: white;
+  font-size: 16px;
+}
+#expand-code:hover{
+  cursor: pointer;
+}
+#editor-tool{
+  display: none;
+  float: right;
+  position: relative;
+  right: 0;
+  left: 0;
+  top: 6.5%;
+  bottom: 0;
+  /* margin-top: 5%; */
+  width: 50%;
+  height: 5%;
+  border: 2px solid black;
+  font-size: large;
+  background-color: grey;
+  text-align: right;
 }
 
-
+.code{
+  float: left;
+  width: 100%;
+  height: 5%;
+  position: relative;
+  right: 0;
+  left: 0;
+  top: 6.5%;
+  bottom: 0;
+  border: 2px solid black;
+  font-size: large;
+  background-color: grey;
+  text-align: right;
+}
 #editor, #pal-editor, #val-editor, #macro-editor{
-    position: absolute;
-    right: 0;
-    left: 0;
-    top: 7%;
-    bottom: 0;
-    /* margin-top: 5%; */
-    min-width: 50%;
-    min-height: 90%;
-    width: 50%;
-    border: 5px grey;
-    font-size: large;
-}
-.visualize{
-    position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: red 
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 11%;
+  bottom: 0;
+  /* margin-top: 5%; */
+  min-width: 50%;
+  min-height: 89%;
+  width: 100%;
+  border: 15px black;
+  font-size: large;
 }
 .flex-child {
    flex: 1;
    width: 50%;
 }  
+.flex-child1{
+  flex: 1;
+}
 #button{
     z-index: 11;
     border:solid 1px;
@@ -46,25 +84,7 @@
     display: flex;
     width: 30%;
 }
-
-.popup {
-    z-index: 9;
-    background-color: #f1f1f1;
-    border: 1px solid #d3d3d3;
-    text-align: center;
-    min-width: 50%;
-    min-height: 93%;
-    width: 50%;
-  }
-
-  /*Drgable */
-  
-  .popup {
-    position: absolute;
-    /*resize: both; !*enable this to css resize*! */
-    overflow: auto;
-  }
-  
+ 
   
   body {
     margin: 0;
@@ -86,18 +106,13 @@
     font-size: 17px;
   }
 
-  
-  .topnav input.project{
-    background-color: #04AA6D;
-    color: white;
-  }
   .topnav a:hover {
     background-color: #ddd;
     color: black;
   }
   
   .topnav a.active {
-    background-color: #04AA6D;
+    background-color: #1DA09C;
     color: white;
   }
   
@@ -131,4 +146,148 @@
       float: right;
   }
 
+  #config{
+    float: right;
+    margin-top: 2px;
+    margin-right: 2px;
+  }
+
+  #visualize{
+    display: block;
+    width: 100%;
+    height: 95%;
+    border: none;
+  }
+
+  .popup {
+    z-index: 9;
+    background-color: #f1f1f1;
+    border: 1px solid #d3d3d3;
+    text-align: center;
+    min-width: 50%;
+    min-height: 88.5%;
+    width: 50%;
+  }
+
+  /*Drgable */
   
+  .popup {
+    position: absolute;
+    /*resize: both; !*enable this to css resize*! */
+    overflow: auto;
+  }
+
+  #run-button{
+    background-color: #1DA09C !important;
+    border-color: #1DA09C !important;
+  }
+  #upload-button, #download, #load-button{
+    background-color: #1DA09C !important;
+    border-color: #1DA09C !important;
+  }
+
+  .blink_me {
+    /* animation: blinker 2s linear infinite; */
+    font-size: medium;
+    color: red;
+    /* text-align: center; */
+    border:1px solid green;
+    overflow: scroll;
+    height: 500px
+  }
+  
+
+  .loader1 {
+    float: left;
+    clear: left;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    border: 4px solid #FFF;
+    top: 50%;
+    left: 50%;
+    animation: loader 2s infinite ease;
+  }
+  .loader1-text {
+    float: left;
+    clear: left;
+    display: inline;
+    width: 350px;
+    height: 50px;
+    position: relative;
+    top: 50%;
+    left: 45%;
+    color: white;
+    font-size: x-large;
+  }
+  
+  .loader1-inner {
+    vertical-align: top;
+    display: inline-block;
+    width: 100%;
+    background-color: #FFF;
+    animation: loader-inner 2s infinite ease-in;
+  }
+  
+  @keyframes loader {
+    0% {
+      transform: rotate(0deg);
+    }
+    
+    25% {
+      transform: rotate(180deg);
+    }
+    
+    50% {
+      transform: rotate(180deg);
+    }
+    
+    75% {
+      transform: rotate(360deg);
+    }
+    
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes loader-inner {
+    0% {
+      height: 0%;
+    }
+    
+    25% {
+      height: 0%;
+    }
+    
+    50% {
+      height: 100%;
+    }
+    
+    75% {
+      height: 100%;
+    }
+    
+    100% {
+      height: 0%;
+    }
+  }
+  #overlay {
+    position: fixed; 
+    display: block; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.75); /* Black background with opacity */
+    z-index: 99999; /* Specify a stack order in case you're using a different order for other elements */
+  }
+
+  #visulization{
+    padding-block: 5% 5%;
+    padding-left: 5%;
+    height: auto;
+  }

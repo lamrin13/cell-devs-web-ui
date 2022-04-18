@@ -1,30 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>ACE in Action</title>
-<link rel="stylesheet" href="style.css">
+    <title>CD++</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js" integrity="sha512-xQBQYt9UcgblF6aCMrwU1NkVA7HCXaSN2oq0so80KO+y68M+n64FOcqgav4igHe6D5ObBLIf68DWv+gfBowczg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel='shortcut icon' href='../app-embed/assets/favicon.ico'>
+		<link rel="stylesheet" href="../app-framework/framework.css">
+		<link rel="stylesheet" href="../app-embed/application.css">
 </head>
 <body>
-<div class="topnav" id="myTopnav">
-    <a href="#home" id="model">Model</a>
-    <a href="#news" id="macro">Macro</a>
-    <a href="#contact" id="value">Value</a>
-    <a href="#about" id="pallate">Pallete</a>
-    <a href="#run" id="run" class="active">Run</a>
-    <input type="text" id="projectInput">
-</div>
-<div class=container>
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Project Configuration</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                  <label for="simulatorInput" class="form-label">Simulator</label><br>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="CD++" checked>
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      CD++
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="santi">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      Santi
+                    </label>
+                  </div>
+                  <div class="mb-3">
+                    <button data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal" type="button" style="display: none;" class="btn btn-primary" id="stval">Set State variables</button>
+                  </div>
+                 
+                    <div class="mb-3">
+                      <label for="projectInput" class="form-label">Project Name</label>
+                      <input type="text" class="form-control" id="projectInput">
+                    </div>
+                    <div class="mb-3">
+                      <label for="macroInput" class="form-label">Macro File Name</label>
+                      <input type="text" class="form-control" id="macroInput">
+                      <div id="macroHelp" class="form-text">Provide macro file name if used.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="simulationTime" class="form-label">Simulation Time</label>
+                        <input type="text" class="form-control" id="simulationTime" placeholder="00:00" aria-describedby="timeHelp">
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                            Please provide valid simulation time. (Maximum allowed is 59:59)
+                          </div>
+                        <div id="emailHelp" class="form-text">Provide simulation time in MM:SS format.</div>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="debug">
+                        <label class="form-check-label" for="flexCheckDefault">
+                          Debug
+                        </label>
+                      </div>
+                  </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="run">Run</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalToggleLabel2">State Variables</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="stvalFilename" class="form-label">State Variable File Name</label>
+                <input type="text" class="form-control" id="stvalFilename">
+              </div>
+              <div class="mb-3">
+                <label for="stvalues" class="form-label">State Variable Values</label>
+                <textarea class="form-control" aria-label="stvalues" style="height: 400px" id="stvalues"></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" data-bs-target="#staticBackdrop" data-bs-toggle="modal" data-bs-dismiss="modal" id="switchModal">Done</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Upload Files</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+                  <input class="form-control" type="file" id="formFileMultiple" multiple>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="upload">Done</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Sample Projects</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="projects">
+            </div>
+            <!-- <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="topnav" id="myTopnav">
+          <a href="#model" id="model">Model</a>
+          <a href="#macro" id="macro">Macro</a>
+          <a href="#value" id="value">Value</a>
+          <a href="#pallate" id="pallate">Palette</a>
+          <!-- <input type="file" id="fileInput" multiple> -->
+          <div id="config">
+              <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="run-button">Run</button>
+              <button type="button" class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal1" id="load-button">Load</button>
+              <button type="button" class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal" id="upload-button">Upload</button>
+              <button type="button" class="btn btn-secondary btn-lg d-none" id="download">Download</button>
+              <button type="buton" class="btn btn-danger btn-lg" id="erase">Clear</button>
+          </div>
+          
+      </div>
+      <div class="toolbar" id="editor-tool"> 
+          <span id="expand"><i class="fas fa-expand"></i></span>
+      </div>
+      <div class="code" id="code-tool"> 
+        <span id="expand-code"><i class="fas fa-expand"></i></span>
+      </div>
+      <div class=container>
     <div class="flex-child">
         <div id="pal-editor"></div>
         <div id="val-editor"></div>
         <div id="macro-editor"></div>
         <div id="editor"></div>
     </div>
-    <div class="flex-child" id="visulization">
+    <div id="visulization" class="flex-child">
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.13/ace.js" integrity="sha512-OMjy8oWtPbx9rJmoprdaQdS2rRovgTetHjiBf7RL7LvRSouoMLks5aIcgqHb6vGEAduuPdBTDCoztxLR+nv45g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.13/ace.js" integrity="sha512-OMjy8oWtPbx9rJmoprdaQdS2rRovgTetHjiBf7RL7LvRSouoMLks5aIcgqHb6vGEAduuPdBTDCoztxLR+nv45g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="../app-embed/WDSV.js" type="module"></script>
+    <script src="app.js" type="module"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.js"></script>
 </body>
 </html>
