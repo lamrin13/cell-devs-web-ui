@@ -329,13 +329,12 @@ function downloadZIP(){
 
 
 function validateSimulationTime(simulationTime){
-    let valid = /([0-5][0-9]:[0-5][0-9])/.exec(simulationTime);
+    let valid = /([0-9][0-9]:[0-5][0-9]:[0-5][0-9])/.exec(simulationTime);
     return valid;
 }
 
 function uploadFiles(){
     let fileList = document.getElementById("formFileMultiple").files;
-    console.log(fileList)
     Array.from(fileList).forEach(file => {
         var reader = new FileReader();
         reader.onloadend = function () {
